@@ -1,5 +1,7 @@
 # TouchPlay
 
+![TouchPlay](banner.png)
+
 **Turn your phone into a gamepad for any PC game.**
 
 This repository hosts the official PC server releases for TouchPlay and serves as our public issue tracker and discussion forum.
