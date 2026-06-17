@@ -1,6 +1,9 @@
 # TouchPlay
 
-![TouchPlay](banner.png)
+<p align="center">
+  <img src="screen1.png" width="48%" />
+  <img src="screen2.png" width="48%" />
+</p>
 
 **Turn your phone into a gamepad for any PC game.**
 
