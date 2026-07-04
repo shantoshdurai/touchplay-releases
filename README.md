@@ -11,7 +11,7 @@ This repository hosts the official PC server releases for TouchPlay and serves a
 
 ## Download
 
-- **📱 Phone App**: Install TouchPlay from the [Google Play Store](#) *(link coming soon)*.
+- **📱 Phone App**: Install TouchPlay from the [Google Play Store](https://play.google.com/store/apps/details?id=com.touchplay.app).
 - **💻 PC Server**: Download `TouchPlay-Server.exe` from our [Releases page](https://github.com/shantoshdurai/touchplay-releases/releases/latest).
 
 ## How to connect
