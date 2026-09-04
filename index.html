@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- One layout, not two. Phones render the desktop composition scaled down
+     rather than reflowing into a different design, so the page looks like
+     itself everywhere. -->
+<meta name="viewport" content="width=640">
 <title>TouchPlay for Windows</title>
 <meta name="description" content="Download the TouchPlay PC server - the small program that lets your phone act as a gamepad, trackpad and second screen for your PC.">
 <meta property="og:title" content="TouchPlay for Windows">
@@ -59,6 +62,8 @@
   .sub{font-size:15px;font-weight:300;color:var(--muted);line-height:1.6;
     max-width:26em;margin:0 auto clamp(30px,5vh,42px)}
 
+  .cta{display:flex;align-items:center;justify-content:center;gap:10px}
+
   /* Quiet at rest, brighter on press - the app's rule. The glow used to
      swallow the label; the type leads now and the light only answers. */
   .pill{display:inline-flex;align-items:center;gap:10px;
@@ -71,6 +76,18 @@
     box-shadow:0 0 26px rgba(255,255,255,.20),0 10px 24px rgba(0,0,0,.5)}
   .pill:active{transform:translateY(0)}
   .pill svg{flex:none}
+
+  /* Sending the page to the machine that can actually use it. */
+  .ghost{width:46px;height:46px;flex:none;border-radius:50%;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);
+    color:var(--muted);font-family:inherit;
+    transition:color .18s,border-color .18s,background .18s,transform .18s}
+  .ghost:hover{color:var(--ink);border-color:rgba(255,255,255,.3);
+    background:rgba(255,255,255,.08);transform:translateY(-2px)}
+  .ghost:active{transform:translateY(0)}
+  .ghost.done{color:#5AD1A6;border-color:rgba(90,209,166,.5)}
+
   .meta{margin-top:14px;font-size:12.5px;color:var(--faint);letter-spacing:.2px}
 
   .steps{margin:clamp(48px,8vh,76px) auto 0;max-width:430px;text-align:left;
@@ -89,6 +106,13 @@
   footer a{color:var(--faint);text-decoration:none;border-bottom:1px solid transparent}
   footer a:hover{color:var(--ink);border-bottom-color:var(--line)}
   footer i{font-style:normal;opacity:.4}
+
+  .toast{position:fixed;left:50%;bottom:34px;transform:translate(-50%,14px);
+    z-index:3;padding:10px 18px;border-radius:22px;
+    background:rgba(20,22,31,.92);border:1px solid var(--line);
+    font-size:12.5px;color:var(--ink);letter-spacing:.2px;
+    opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
 
   .rise{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
   @keyframes rise{to{opacity:1;transform:none}}
@@ -112,14 +136,24 @@
     keyboard and screen. One file, nothing to install.
   </p>
 
-  <a class="pill rise" style="animation-delay:.3s"
-     href="https://github.com/shantoshdurai/touchplay-releases/releases/latest/download/TouchPlay-Server.exe">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/>
-    </svg>
-    Download for Windows (64-bit)
-  </a>
+  <div class="cta rise" style="animation-delay:.3s">
+    <a class="pill"
+       href="https://github.com/shantoshdurai/touchplay-releases/releases/latest/download/TouchPlay-Server.exe">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/>
+      </svg>
+      Download for Windows (64-bit)
+    </a>
+    <button class="ghost" id="copy" title="Send this page to your PC"
+            aria-label="Send this page to your PC">
+      <svg id="copyicon" width="17" height="17" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="12" height="12" rx="2.5"/>
+        <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/>
+      </svg>
+    </button>
+  </div>
 
   <div class="meta rise" style="animation-delay:.36s" id="meta">Windows 10 &amp; 11 &middot; about 60 MB</div>
 
@@ -137,11 +171,13 @@
   </footer>
 </main>
 
+<div class="toast" id="toast">Link copied</div>
+
 <script>
   // Drifting dust, matching the app's ambient background.
   (function () {
     var d = document.getElementById('dust');
-    var n = window.innerWidth < 600 ? 14 : 26;
+    var n = 26;
     var h = '';
     for (var i = 0; i < n; i++) {
       h += '<i style="left:' + (Math.random() * 100).toFixed(2) + '%;bottom:-4px;'
@@ -150,6 +186,53 @@
          + 'opacity:' + (0.2 + Math.random() * 0.5).toFixed(2) + '"></i>';
     }
     d.innerHTML = h;
+  })();
+
+  // The copy button is really a "send this to the machine that can run it"
+  // button: the OS share sheet where there is one - WhatsApp, Instagram, mail -
+  // and the clipboard everywhere else. Same control on phone and desktop.
+  (function () {
+    var btn = document.getElementById('copy');
+    var icon = document.getElementById('copyicon');
+    var toast = document.getElementById('toast');
+    // The canonical page, not location.href: whatever route brought the
+    // visitor here, the link they pass on should be the clean one.
+    var link = 'https://shantoshdurai.github.io/touchplay-releases/';
+    var tick = '<path d="M20 6 9 17l-5-5"/>';
+    var copy = '<rect x="9" y="9" width="12" height="12" rx="2.5"/>'
+             + '<path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/>';
+    var timer;
+
+    function flash(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      btn.classList.add('done');
+      icon.innerHTML = tick;
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        toast.classList.remove('show');
+        btn.classList.remove('done');
+        icon.innerHTML = copy;
+      }, 2200);
+    }
+
+    btn.addEventListener('click', function () {
+      if (navigator.share) {
+        navigator.share({
+          title: 'TouchPlay for Windows',
+          text: 'Open this on your PC to set up TouchPlay:',
+          url: link
+        }).catch(function () {});
+        return;
+      }
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(link)
+          .then(function () { flash('Link copied'); })
+          .catch(function () { flash(link); });
+        return;
+      }
+      flash(link);
+    });
   })();
 
   // Show the real version and size once GitHub answers; stays silent if it
