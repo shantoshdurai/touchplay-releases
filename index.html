@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TouchPlay for Windows</title>
+<meta name="description" content="Download the TouchPlay PC server - the small program that lets your phone act as a gamepad, trackpad and second screen for your PC.">
+<meta property="og:title" content="TouchPlay for Windows">
+<meta property="og:description" content="Open this on your PC to get TouchPlay - one file, nothing to install.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07070C;
+    --ink:#E9EDF4;
+    --accent:#6FB6FF;
+    --muted:rgba(233,237,244,.55);
+    --faint:rgba(233,237,244,.34);
+    --line:rgba(255,255,255,.10);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Sora',system-ui,-apple-system,'Segoe UI',sans-serif;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  /* Ambience - the app's soft glow and drifting dust, in CSS. */
+  .glow{position:fixed;inset:0;pointer-events:none;z-index:0}
+  .glow::before,.glow::after{content:'';position:absolute;border-radius:50%;filter:blur(90px)}
+  .glow::before{width:60vw;height:60vw;left:-18vw;top:-22vw;background:rgba(111,182,255,.13)}
+  .glow::after{width:48vw;height:48vw;right:-16vw;bottom:-20vw;background:rgba(111,182,255,.07)}
+  .dust{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+  .dust i{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(255,255,255,.35);
+    animation:drift linear infinite}
+  @keyframes drift{
+    from{transform:translateY(8vh) scale(.6);opacity:0}
+    12%{opacity:.7}
+    88%{opacity:.5}
+    to{transform:translateY(-92vh) scale(1);opacity:0}
+  }
+
+  main{position:relative;z-index:1;max-width:640px;margin:0 auto;
+    padding:clamp(48px,9vh,110px) 24px 64px;text-align:center}
+
+  .wordmark{font-size:13px;font-weight:600;letter-spacing:.34em;text-transform:uppercase;
+    color:var(--faint);margin-bottom:clamp(34px,7vh,58px)}
+  .wordmark b{color:var(--ink);font-weight:600}
+  .wordmark s{color:var(--accent);text-decoration:none}
+
+  h1{font-size:clamp(30px,6.4vw,46px);font-weight:200;letter-spacing:-.5px;
+    line-height:1.14;margin:0 0 16px}
+  h1 em{font-style:normal;font-weight:500}
+  .sub{font-size:15px;font-weight:300;color:var(--muted);line-height:1.6;
+    max-width:26em;margin:0 auto clamp(30px,5vh,42px)}
+
+  .pill{display:inline-flex;align-items:center;gap:11px;
+    background:#E9EDF4;color:#10141B;text-decoration:none;
+    font-family:inherit;font-weight:600;font-size:16px;letter-spacing:.1px;
+    padding:17px 34px;border-radius:34px;border:0;cursor:pointer;
+    box-shadow:0 0 34px rgba(255,255,255,.20),0 10px 26px rgba(0,0,0,.45);
+    transition:transform .18s cubic-bezier(.2,.7,.2,1),box-shadow .18s}
+  .pill:hover{transform:translateY(-2px);box-shadow:0 0 46px rgba(255,255,255,.30),0 14px 30px rgba(0,0,0,.5)}
+  .pill:active{transform:translateY(0)}
+  .pill svg{flex:none}
+  .meta{margin-top:14px;font-size:12.5px;color:var(--faint);letter-spacing:.2px}
+
+  .steps{margin:clamp(48px,8vh,76px) auto 0;max-width:430px;text-align:left;
+    border-top:1px solid var(--line);padding-top:30px}
+  .steps h2{font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--faint);margin:0 0 20px}
+  .step{display:flex;gap:14px;margin-bottom:18px}
+  .step span{flex:none;width:23px;height:23px;border-radius:50%;
+    border:1px solid var(--accent);background:rgba(111,182,255,.13);color:var(--accent);
+    font-size:11.5px;font-weight:600;display:flex;align-items:center;justify-content:center}
+  .step p{margin:2px 0 0;font-size:13.5px;line-height:1.6;color:var(--muted)}
+  .step p b{color:var(--ink);font-weight:500}
+
+  footer{margin-top:clamp(46px,7vh,72px);font-size:12px;color:var(--faint);
+    display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  footer a{color:var(--faint);text-decoration:none;border-bottom:1px solid transparent}
+  footer a:hover{color:var(--ink);border-bottom-color:var(--line)}
+  footer i{font-style:normal;opacity:.4}
+
+  /* One page, two sides. The PC gets a download button and nothing else; the
+     phone gets a share button, because a .exe is no use to it. Hidden until
+     the inline script picks a side, so neither view ever flashes. */
+  .pc,.phone{display:none}
+  body.is-pc .pc{display:revert}
+  body.is-phone .phone{display:revert}
+  body.is-pc h1.pc,body.is-phone h1.phone{display:block}
+  body.is-pc .pill.pc,body.is-phone .pill.phone{display:inline-flex}
+
+  .rise{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    .rise{animation:none;opacity:1;transform:none}
+    .dust{display:none}
+  }
+</style>
+</head>
+<body>
+<script>
+  // Before first paint, so the wrong half is never briefly visible.
+  document.body.classList.add(
+    /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) ? 'is-phone' : 'is-pc');
+</script>
+
+<div class="glow"></div>
+<div class="dust" id="dust"></div>
+
+<main>
+  <div class="wordmark rise" style="animation-delay:.05s"><b>TouchPlay</b><s>.</s></div>
+
+  <h1 class="pc rise" style="animation-delay:.14s">Get TouchPlay<br><em>for Windows</em></h1>
+  <h1 class="phone rise" style="animation-delay:.14s">Send it<br><em>to your PC</em></h1>
+
+  <p class="sub pc rise" style="animation-delay:.22s">
+    The small program that lets your phone drive this PC - gamepad, trackpad,
+    keyboard and screen. One file, nothing to install.
+  </p>
+  <p class="sub phone rise" style="animation-delay:.22s">
+    TouchPlay runs on your computer, not here. Send yourself this link and
+    open it there.
+  </p>
+
+  <a class="pill pc rise" style="animation-delay:.3s"
+     href="https://github.com/shantoshdurai/touchplay-releases/releases/latest/download/TouchPlay-Server.exe">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/>
+    </svg>
+    Download for Windows (64-bit)
+  </a>
+
+  <button class="pill phone rise" style="animation-delay:.3s" id="share">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+      <path d="m8.6 13.5 6.8 4"/><path d="m15.4 6.5-6.8 4"/>
+    </svg>
+    <span id="sharelabel">Share the link</span>
+  </button>
+
+  <div class="meta pc rise" style="animation-delay:.36s" id="meta">Windows 10 &amp; 11 &middot; about 60 MB</div>
+  <div class="meta phone rise" style="animation-delay:.36s">WhatsApp, Telegram, email - anything you can open on the PC</div>
+
+  <section class="steps pc rise" style="animation-delay:.44s">
+    <h2>Then</h2>
+    <div class="step"><span>1</span><p>Open the file you just downloaded - <b>TouchPlay-Server.exe</b>. It runs straight away, there is no installer.</p></div>
+    <div class="step"><span>2</span><p>Windows may show a blue <b>Windows protected your PC</b> box. That appears for every new program. Click <b>More info</b>, then <b>Run anyway</b>.</p></div>
+    <div class="step"><span>3</span><p>Open TouchPlay on your phone. It finds this PC on its own - <b>nothing to type</b>.</p></div>
+  </section>
+
+  <section class="steps phone rise" style="animation-delay:.44s">
+    <h2>Then</h2>
+    <div class="step"><span>1</span><p>Open the link on your computer - the page turns into a <b>Download</b> button there.</p></div>
+    <div class="step"><span>2</span><p>Run the downloaded file. If Windows shows a blue box, click <b>More info</b> then <b>Run anyway</b>.</p></div>
+    <div class="step"><span>3</span><p>Come back to TouchPlay. It finds your PC on its own - <b>nothing to type</b>.</p></div>
+  </section>
+
+  <footer>
+    <a href="https://play.google.com/store/apps/details?id=com.touchplay.app">Phone app</a><i>&middot;</i>
+    <a href="https://github.com/shantoshdurai/touchplay-releases/releases/latest">Release notes</a><i>&middot;</i>
+    <a href="https://github.com/shantoshdurai/touchplay-releases/issues">Help</a>
+  </footer>
+</main>
+
+<script>
+  // Drifting dust, matching the app's ambient background.
+  (function () {
+    var d = document.getElementById('dust');
+    var n = window.innerWidth < 600 ? 14 : 26;
+    var h = '';
+    for (var i = 0; i < n; i++) {
+      h += '<i style="left:' + (Math.random() * 100).toFixed(2) + '%;bottom:-4px;'
+         + 'animation-duration:' + (16 + Math.random() * 22).toFixed(1) + 's;'
+         + 'animation-delay:-' + (Math.random() * 30).toFixed(1) + 's;'
+         + 'opacity:' + (0.2 + Math.random() * 0.5).toFixed(2) + '"></i>';
+    }
+    d.innerHTML = h;
+  })();
+
+  // Phone: hand the link straight to the OS share sheet, so WhatsApp and the
+  // rest are one tap away. Where that does not exist, quietly fall back to the
+  // clipboard - the button still does something useful either way.
+  (function () {
+    var btn = document.getElementById('share');
+    var label = document.getElementById('sharelabel');
+    if (!btn) return;
+    var link = location.href.split('#')[0];
+    var payload = {
+      title: 'TouchPlay for Windows',
+      text: 'Open this on your PC to set up TouchPlay:',
+      url: link
+    };
+    function flash(msg) {
+      var was = label.textContent;
+      label.textContent = msg;
+      setTimeout(function () { label.textContent = was; }, 2000);
+    }
+    btn.addEventListener('click', function () {
+      if (navigator.share) {
+        navigator.share(payload).catch(function () {});
+        return;
+      }
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(link)
+          .then(function () { flash('Link copied'); })
+          .catch(function () { flash(link); });
+        return;
+      }
+      flash(link);
+    });
+  })();
+
+  // Show the real version and size once GitHub answers; stays silent if it
+  // does not, so the page never depends on the API being up.
+  fetch('https://api.github.com/repos/shantoshdurai/touchplay-releases/releases/latest')
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (j) {
+      var meta = document.getElementById('meta');
+      if (!j || !meta) return;
+      var exe = (j.assets || []).filter(function (a) { return /\.exe$/i.test(a.name); })[0];
+      var mb = exe ? Math.round(exe.size / 1048576) : null;
+      meta.innerHTML = 'Windows 10 &amp; 11 &middot; ' + (mb ? mb + ' MB' : 'about 60 MB')
+        + (j.tag_name ? ' &middot; ' + j.tag_name : '');
+    })
+    .catch(function () {});
+</script>
+</body>
+</html>
