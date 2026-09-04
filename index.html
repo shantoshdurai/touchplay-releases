@@ -59,13 +59,16 @@
   .sub{font-size:15px;font-weight:300;color:var(--muted);line-height:1.6;
     max-width:26em;margin:0 auto clamp(30px,5vh,42px)}
 
-  .pill{display:inline-flex;align-items:center;gap:11px;
+  /* Quiet at rest, brighter on press - the app's rule. The glow used to
+     swallow the label; the type leads now and the light only answers. */
+  .pill{display:inline-flex;align-items:center;gap:10px;
     background:#E9EDF4;color:#10141B;text-decoration:none;
-    font-family:inherit;font-weight:600;font-size:16px;letter-spacing:.1px;
-    padding:17px 34px;border-radius:34px;border:0;cursor:pointer;
-    box-shadow:0 0 34px rgba(255,255,255,.20),0 10px 26px rgba(0,0,0,.45);
+    font-family:inherit;font-weight:600;font-size:15.5px;letter-spacing:.1px;
+    padding:14px 27px;border-radius:30px;border:0;cursor:pointer;
+    box-shadow:0 0 16px rgba(255,255,255,.10),0 6px 18px rgba(0,0,0,.45);
     transition:transform .18s cubic-bezier(.2,.7,.2,1),box-shadow .18s}
-  .pill:hover{transform:translateY(-2px);box-shadow:0 0 46px rgba(255,255,255,.30),0 14px 30px rgba(0,0,0,.5)}
+  .pill:hover{transform:translateY(-2px);
+    box-shadow:0 0 26px rgba(255,255,255,.20),0 10px 24px rgba(0,0,0,.5)}
   .pill:active{transform:translateY(0)}
   .pill svg{flex:none}
   .meta{margin-top:14px;font-size:12.5px;color:var(--faint);letter-spacing:.2px}
@@ -87,15 +90,6 @@
   footer a:hover{color:var(--ink);border-bottom-color:var(--line)}
   footer i{font-style:normal;opacity:.4}
 
-  /* One page, two sides. The PC gets a download button and nothing else; the
-     phone gets a share button, because a .exe is no use to it. Hidden until
-     the inline script picks a side, so neither view ever flashes. */
-  .pc,.phone{display:none}
-  body.is-pc .pc{display:revert}
-  body.is-phone .phone{display:revert}
-  body.is-pc h1.pc,body.is-phone h1.phone{display:block}
-  body.is-pc .pill.pc,body.is-phone .pill.phone{display:inline-flex}
-
   .rise{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
   @keyframes rise{to{opacity:1;transform:none}}
   @media (prefers-reduced-motion:reduce){
@@ -105,63 +99,35 @@
 </style>
 </head>
 <body>
-<script>
-  // Before first paint, so the wrong half is never briefly visible.
-  document.body.classList.add(
-    /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) ? 'is-phone' : 'is-pc');
-</script>
-
 <div class="glow"></div>
 <div class="dust" id="dust"></div>
 
 <main>
   <div class="wordmark rise" style="animation-delay:.05s"><b>TouchPlay</b><s>.</s></div>
 
-  <h1 class="pc rise" style="animation-delay:.14s">Get TouchPlay<br><em>for Windows</em></h1>
-  <h1 class="phone rise" style="animation-delay:.14s">Send it<br><em>to your PC</em></h1>
+  <h1 class="rise" style="animation-delay:.14s">Get TouchPlay<br><em>for Windows</em></h1>
 
-  <p class="sub pc rise" style="animation-delay:.22s">
+  <p class="sub rise" style="animation-delay:.22s">
     The small program that lets your phone drive this PC - gamepad, trackpad,
     keyboard and screen. One file, nothing to install.
   </p>
-  <p class="sub phone rise" style="animation-delay:.22s">
-    TouchPlay runs on your computer, not here. Send yourself this link and
-    open it there.
-  </p>
 
-  <a class="pill pc rise" style="animation-delay:.3s"
+  <a class="pill rise" style="animation-delay:.3s"
      href="https://github.com/shantoshdurai/touchplay-releases/releases/latest/download/TouchPlay-Server.exe">
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
          stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/>
     </svg>
     Download for Windows (64-bit)
   </a>
 
-  <button class="pill phone rise" style="animation-delay:.3s" id="share">
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
-      <path d="m8.6 13.5 6.8 4"/><path d="m15.4 6.5-6.8 4"/>
-    </svg>
-    <span id="sharelabel">Share the link</span>
-  </button>
+  <div class="meta rise" style="animation-delay:.36s" id="meta">Windows 10 &amp; 11 &middot; about 60 MB</div>
 
-  <div class="meta pc rise" style="animation-delay:.36s" id="meta">Windows 10 &amp; 11 &middot; about 60 MB</div>
-  <div class="meta phone rise" style="animation-delay:.36s">WhatsApp, Telegram, email - anything you can open on the PC</div>
-
-  <section class="steps pc rise" style="animation-delay:.44s">
+  <section class="steps rise" style="animation-delay:.44s">
     <h2>Then</h2>
     <div class="step"><span>1</span><p>Open the file you just downloaded - <b>TouchPlay-Server.exe</b>. It runs straight away, there is no installer.</p></div>
     <div class="step"><span>2</span><p>Windows may show a blue <b>Windows protected your PC</b> box. That appears for every new program. Click <b>More info</b>, then <b>Run anyway</b>.</p></div>
     <div class="step"><span>3</span><p>Open TouchPlay on your phone. It finds this PC on its own - <b>nothing to type</b>.</p></div>
-  </section>
-
-  <section class="steps phone rise" style="animation-delay:.44s">
-    <h2>Then</h2>
-    <div class="step"><span>1</span><p>Open the link on your computer - the page turns into a <b>Download</b> button there.</p></div>
-    <div class="step"><span>2</span><p>Run the downloaded file. If Windows shows a blue box, click <b>More info</b> then <b>Run anyway</b>.</p></div>
-    <div class="step"><span>3</span><p>Come back to TouchPlay. It finds your PC on its own - <b>nothing to type</b>.</p></div>
   </section>
 
   <footer>
@@ -184,39 +150,6 @@
          + 'opacity:' + (0.2 + Math.random() * 0.5).toFixed(2) + '"></i>';
     }
     d.innerHTML = h;
-  })();
-
-  // Phone: hand the link straight to the OS share sheet, so WhatsApp and the
-  // rest are one tap away. Where that does not exist, quietly fall back to the
-  // clipboard - the button still does something useful either way.
-  (function () {
-    var btn = document.getElementById('share');
-    var label = document.getElementById('sharelabel');
-    if (!btn) return;
-    var link = location.href.split('#')[0];
-    var payload = {
-      title: 'TouchPlay for Windows',
-      text: 'Open this on your PC to set up TouchPlay:',
-      url: link
-    };
-    function flash(msg) {
-      var was = label.textContent;
-      label.textContent = msg;
-      setTimeout(function () { label.textContent = was; }, 2000);
-    }
-    btn.addEventListener('click', function () {
-      if (navigator.share) {
-        navigator.share(payload).catch(function () {});
-        return;
-      }
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(link)
-          .then(function () { flash('Link copied'); })
-          .catch(function () { flash(link); });
-        return;
-      }
-      flash(link);
-    });
   })();
 
   // Show the real version and size once GitHub answers; stays silent if it
