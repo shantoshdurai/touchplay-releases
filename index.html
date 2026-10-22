@@ -6,16 +6,17 @@
      rather than reflowing into a different design, so the page looks like
      itself everywhere. -->
 <meta name="viewport" content="width=640">
-<title>TouchPlay for Windows</title>
-<meta name="description" content="Download the TouchPlay PC server - the small program that lets your phone act as a gamepad, trackpad and second screen for your PC.">
-<meta property="og:title" content="TouchPlay for Windows">
-<meta property="og:description" content="Open this on your PC to get TouchPlay - one file, nothing to install.">
+<title>TouchPlay — Phone to PC Controller &amp; 2nd Screen</title>
+<meta name="description" content="Download the TouchPlay PC server for Windows and Linux — the program that lets your phone act as a gamepad, trackpad, and second screen for your PC.">
+<meta property="og:title" content="TouchPlay for Windows &amp; Linux">
+<meta property="og:description" content="Turn your phone into a real controller, trackpad, and second screen for your PC.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#07070C;
+    --card:#10131B;
     --ink:#E9EDF4;
     --accent:#6FB6FF;
     --muted:rgba(233,237,244,.55);
@@ -49,33 +50,50 @@
   }
 
   main{position:relative;z-index:1;max-width:640px;margin:0 auto;
-    padding:clamp(48px,9vh,110px) 24px 64px;text-align:center}
+    padding:clamp(44px,8vh,90px) 24px 64px;text-align:center}
 
   .wordmark{font-size:13px;font-weight:600;letter-spacing:.34em;text-transform:uppercase;
-    color:var(--faint);margin-bottom:clamp(34px,7vh,58px)}
+    color:var(--faint);margin-bottom:clamp(28px,5vh,48px)}
   .wordmark b{color:var(--ink);font-weight:600}
   .wordmark s{color:var(--accent);text-decoration:none}
 
-  h1{font-size:clamp(30px,6.4vw,46px);font-weight:200;letter-spacing:-.5px;
-    line-height:1.14;margin:0 0 16px}
-  h1 em{font-style:normal;font-weight:500}
-  .sub{font-size:15px;font-weight:300;color:var(--muted);line-height:1.6;
-    max-width:26em;margin:0 auto clamp(30px,5vh,42px)}
+  h1{font-size:clamp(30px,6.2vw,44px);font-weight:200;letter-spacing:-.5px;
+    line-height:1.15;margin:0 0 16px}
+  h1 em{font-style:normal;font-weight:500;color:var(--accent)}
+  .sub{font-size:14.5px;font-weight:300;color:var(--muted);line-height:1.6;
+    max-width:28em;margin:0 auto clamp(26px,4vh,36px)}
+
+  /* OS Tabs Switcher */
+  .os-switch{display:inline-flex;background:rgba(255,255,255,.05);border:1px solid var(--line);
+    border-radius:30px;padding:3px;margin:0 auto 28px}
+  .os-tab{background:transparent;border:0;color:var(--muted);font-family:inherit;
+    font-size:13px;font-weight:500;padding:8px 22px;border-radius:24px;cursor:pointer;
+    transition:background .2s,color .2s}
+  .os-tab.active{background:var(--accent);color:#07070C;font-weight:600}
 
   .cta{display:flex;align-items:center;justify-content:center;gap:10px}
 
-  /* Quiet at rest, brighter on press - the app's rule. The glow used to
-     swallow the label; the type leads now and the light only answers. */
+  /* Quiet at rest, brighter on press */
   .pill{display:inline-flex;align-items:center;gap:10px;
     background:#E9EDF4;color:#10141B;text-decoration:none;
-    font-family:inherit;font-weight:600;font-size:15.5px;letter-spacing:.1px;
-    padding:14px 27px;border-radius:30px;border:0;cursor:pointer;
+    font-family:inherit;font-weight:600;font-size:15px;letter-spacing:.1px;
+    padding:13px 26px;border-radius:30px;border:0;cursor:pointer;
     box-shadow:0 0 16px rgba(255,255,255,.10),0 6px 18px rgba(0,0,0,.45);
     transition:transform .18s cubic-bezier(.2,.7,.2,1),box-shadow .18s}
   .pill:hover{transform:translateY(-2px);
     box-shadow:0 0 26px rgba(255,255,255,.20),0 10px 24px rgba(0,0,0,.5)}
   .pill:active{transform:translateY(0)}
   .pill svg{flex:none}
+
+  /* Linux CLI snippet */
+  .code-box{display:flex;align-items:center;gap:10px;background:var(--card);
+    border:1px solid var(--line);border-radius:14px;padding:12px 18px;max-width:540px;
+    margin:0 auto;text-align:left;font-family:monospace;font-size:12.5px;color:var(--ink)}
+  .code-box code{flex:1;overflow-x:auto;white-space:nowrap}
+  .code-copy{background:rgba(255,255,255,.07);border:1px solid var(--line);
+    border-radius:8px;color:var(--accent);padding:6px 12px;font-size:11.5px;
+    cursor:pointer;font-family:'Sora',sans-serif;font-weight:500;transition:all .2s}
+  .code-copy:hover{background:var(--accent);color:#07070C}
 
   /* Sending the page to the machine that can actually use it. */
   .ghost{width:46px;height:46px;flex:none;border-radius:50%;cursor:pointer;
@@ -88,20 +106,33 @@
   .ghost:active{transform:translateY(0)}
   .ghost.done{color:#5AD1A6;border-color:rgba(90,209,166,.5)}
 
-  .meta{margin-top:14px;font-size:12.5px;color:var(--faint);letter-spacing:.2px}
+  .meta{margin-top:14px;font-size:12px;color:var(--faint);letter-spacing:.2px}
 
-  .steps{margin:clamp(48px,8vh,76px) auto 0;max-width:430px;text-align:left;
-    border-top:1px solid var(--line);padding-top:30px}
+  .steps{margin:clamp(36px,6vh,54px) auto 0;max-width:440px;text-align:left;
+    border-top:1px solid var(--line);padding-top:24px}
   .steps h2{font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;
-    color:var(--faint);margin:0 0 20px}
-  .step{display:flex;gap:14px;margin-bottom:18px}
-  .step span{flex:none;width:23px;height:23px;border-radius:50%;
+    color:var(--faint);margin:0 0 18px}
+  .step{display:flex;gap:14px;margin-bottom:16px}
+  .step span{flex:none;width:22px;height:22px;border-radius:50%;
     border:1px solid var(--accent);background:rgba(111,182,255,.13);color:var(--accent);
-    font-size:11.5px;font-weight:600;display:flex;align-items:center;justify-content:center}
-  .step p{margin:2px 0 0;font-size:13.5px;line-height:1.6;color:var(--muted)}
+    font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center}
+  .step p{margin:2px 0 0;font-size:13px;line-height:1.6;color:var(--muted)}
   .step p b{color:var(--ink);font-weight:500}
+  .step code{font-size:12px;background:rgba(255,255,255,.07);padding:2px 6px;border-radius:4px}
 
-  footer{margin-top:clamp(46px,7vh,72px);font-size:12px;color:var(--faint);
+  /* Comparison Card */
+  .diff-section{margin:clamp(32px,5vh,48px) auto 0;max-width:540px;text-align:left;
+    border-top:1px solid var(--line);padding-top:24px}
+  .diff-section h2{font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--faint);margin:0 0 16px;text-align:center}
+  .diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .diff-col{background:rgba(255,255,255,.03);border:1px solid var(--line);
+    border-radius:12px;padding:16px}
+  .diff-col h3{margin:0 0 10px;font-size:13.5px;font-weight:600;color:var(--ink)}
+  .diff-col ul{margin:0;padding-left:16px;font-size:12px;line-height:1.65;color:var(--muted)}
+  .diff-col li{margin-bottom:5px}
+
+  footer{margin-top:clamp(40px,6vh,64px);font-size:12px;color:var(--faint);
     display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
   footer a{color:var(--faint);text-decoration:none;border-bottom:1px solid transparent}
   footer a:hover{color:var(--ink);border-bottom-color:var(--line)}
@@ -129,54 +160,116 @@
 <main>
   <div class="wordmark rise" style="animation-delay:.05s"><b>TouchPlay</b><s>.</s></div>
 
-  <h1 class="rise" style="animation-delay:.14s">Get TouchPlay<br><em>for Windows</em></h1>
+  <h1 class="rise" style="animation-delay:.14s">Get TouchPlay<br><em id="hero-os">for PC</em></h1>
 
   <p class="sub rise" style="animation-delay:.22s">
-    The small program that lets your phone drive this PC - gamepad, trackpad,
-    keyboard and screen. One file, nothing to install.
+    Turn your Android phone into a real controller, trackpad, and second screen.
+    High-performance native support for both Windows and Linux.
   </p>
 
-  <div class="cta rise" style="animation-delay:.3s">
-    <a class="pill"
-       href="https://github.com/shantoshdurai/touchplay-releases/releases/latest/download/TouchPlay-Server.exe">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/>
-      </svg>
-      Download for Windows (64-bit)
-    </a>
-    <button class="ghost" id="copy" title="Send this page to your PC"
-            aria-label="Send this page to your PC">
-      <svg id="copyicon" width="17" height="17" viewBox="0 0 24 24" fill="none"
-           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="9" y="9" width="12" height="12" rx="2.5"/>
-        <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/>
-      </svg>
-    </button>
+  <!-- OS Segmented Switcher -->
+  <div class="os-switch rise" style="animation-delay:.28s">
+    <button class="os-tab active" id="tab-win" onclick="setOS('win')">🪟 Windows</button>
+    <button class="os-tab" id="tab-linux" onclick="setOS('linux')">🐧 Linux</button>
   </div>
 
-  <div class="meta rise" style="animation-delay:.36s" id="meta">Windows 10 &amp; 11 &middot; about 60 MB</div>
+  <!-- Windows Action Container -->
+  <div id="box-win" class="rise" style="animation-delay:.34s">
+    <div class="cta">
+      <a class="pill"
+         href="https://github.com/shantoshdurai/touchplay-releases/releases/latest/download/TouchPlay-Server.exe">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/>
+        </svg>
+        Download for Windows (64-bit)
+      </a>
+      <button class="ghost" onclick="sharePage()" title="Share download link" aria-label="Share download link">
+        <svg class="copyicon" width="17" height="17" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="12" height="12" rx="2.5"/>
+          <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/>
+        </svg>
+      </button>
+    </div>
+    <div class="meta" id="meta-win">Windows 10 &amp; 11 &middot; about 60 MB &middot; Standalone .exe</div>
 
-  <section class="steps rise" style="animation-delay:.44s">
-    <h2>Then</h2>
-    <div class="step"><span>1</span><p>Open the file you just downloaded - <b>TouchPlay-Server.exe</b>. It runs straight away, there is no installer.</p></div>
-    <div class="step"><span>2</span><p>Windows may show a blue <b>Windows protected your PC</b> box. That appears for every new program. Click <b>More info</b>, then <b>Run anyway</b>.</p></div>
-    <div class="step"><span>3</span><p>Open TouchPlay on your phone. It finds this PC on its own - <b>nothing to type</b>.</p></div>
+    <section class="steps">
+      <h2>How to run on Windows</h2>
+      <div class="step"><span>1</span><p>Run <b>TouchPlay-Server.exe</b> (runs straight away, no installer needed; ViGEmBus bundled).</p></div>
+      <div class="step"><span>2</span><p>If Windows SmartScreen appears, click <b>More info</b> &rarr; <b>Run anyway</b>.</p></div>
+      <div class="step"><span>3</span><p>Open TouchPlay on your phone &mdash; it finds your PC automatically!</p></div>
+    </section>
+  </div>
+
+  <!-- Linux Action Container -->
+  <div id="box-linux" style="display:none" class="rise">
+    <div class="code-box">
+      <code>git clone https://github.com/shantoshdurai/TouchPlay.git &amp;&amp; cd TouchPlay &amp;&amp; ./setup.sh</code>
+      <button class="code-copy" onclick="copyLinuxCmd()">Copy</button>
+    </div>
+    <div style="margin-top:14px">
+      <a class="pill" href="https://github.com/shantoshdurai/TouchPlay" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+          <path d="M9 18c-4.51 2-5-2-7-2"/>
+        </svg>
+        View Source &amp; Setup on GitHub
+      </a>
+    </div>
+    <div class="meta">Arch, Ubuntu, Fedora, Omarchy &middot; Native uinput &amp; Wayland / X11</div>
+
+    <section class="steps">
+      <h2>How to run on Linux</h2>
+      <div class="step"><span>1</span><p>Run <code>./TouchPlay-Server.sh</code> to launch the terminal dashboard.</p></div>
+      <div class="step"><span>2</span><p>Open TouchPlay on your phone &mdash; it connects instantly over Wi-Fi or USB.</p></div>
+      <div class="step"><span>3</span><p>Send videos anytime: <code>touchplay-send &lt;video.mp4&gt;</code> or drop into <code>~/Downloads/TouchPlay</code>.</p></div>
+    </section>
+  </div>
+
+  <!-- Platform Comparison -->
+  <section class="diff-section rise" style="animation-delay:.42s">
+    <h2>Architecture &amp; Features</h2>
+    <div class="diff-grid">
+      <div class="diff-col">
+        <h3>🪟 Windows</h3>
+        <ul>
+          <li><b>Standalone:</b> Single portable <code>.exe</code> file</li>
+          <li><b>GUI:</b> Rounded window, tray icon &amp; drag-drop</li>
+          <li><b>Driver:</b> Bundled ViGEmBus (Xbox 360 &amp; DS4)</li>
+          <li><b>Mirror:</b> DirectX Desktop Duplication (DXGI)</li>
+          <li><b>Drop:</b> <code>Downloads\TouchPlay</code></li>
+        </ul>
+      </div>
+      <div class="diff-col">
+        <h3>🐧 Linux</h3>
+        <ul>
+          <li><b>Lightweight:</b> Fast Rich Terminal Dashboard (TUI)</li>
+          <li><b>Drivers:</b> Kernel <code>/dev/uinput</code> (zero driver install)</li>
+          <li><b>Mirror:</b> Wayland (<code>grim</code>) &amp; X11 with GPU offload</li>
+          <li><b>2nd Screen:</b> Headless virtual output (Hyprland)</li>
+          <li><b>Drop:</b> <code>~/Downloads/TouchPlay</code> + CLI tool</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <footer>
-    <a href="https://play.google.com/store/apps/details?id=com.touchplay.app">Phone app</a><i>&middot;</i>
-    <a href="https://github.com/shantoshdurai/touchplay-releases/releases/latest">Release notes</a><i>&middot;</i>
-    <a href="https://github.com/shantoshdurai/touchplay-releases/issues">Help</a>
+    <a href="https://play.google.com/store/apps/details?id=com.touchplay.app">📱 Android App</a><i>&middot;</i>
+    <a href="https://github.com/shantoshdurai/TouchPlay">💻 GitHub Repository</a><i>&middot;</i>
+    <a href="https://github.com/shantoshdurai/touchplay-releases/releases/latest">📦 Releases</a><i>&middot;</i>
+    <a href="https://github.com/shantoshdurai/touchplay-releases/issues">💬 Help &amp; Issues</a>
   </footer>
 </main>
 
 <div class="toast" id="toast">Link copied</div>
 
 <script>
-  // Drifting dust, matching the app's ambient background.
+  // Drifting dust
   (function () {
     var d = document.getElementById('dust');
+    if (!d) return;
     var n = 26;
     var h = '';
     for (var i = 0; i < n; i++) {
@@ -188,64 +281,81 @@
     d.innerHTML = h;
   })();
 
-  // The copy button is really a "send this to the machine that can run it"
-  // button: the OS share sheet where there is one - WhatsApp, Instagram, mail -
-  // and the clipboard everywhere else. Same control on phone and desktop.
-  (function () {
-    var btn = document.getElementById('copy');
-    var icon = document.getElementById('copyicon');
-    var toast = document.getElementById('toast');
-    // The canonical page, not location.href: whatever route brought the
-    // visitor here, the link they pass on should be the clean one.
-    var link = 'https://shantoshdurai.github.io/touchplay-releases/';
-    var tick = '<path d="M20 6 9 17l-5-5"/>';
-    var copy = '<rect x="9" y="9" width="12" height="12" rx="2.5"/>'
-             + '<path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/>';
-    var timer;
+  function setOS(os) {
+    var winTab = document.getElementById('tab-win');
+    var linTab = document.getElementById('tab-linux');
+    var winBox = document.getElementById('box-win');
+    var linBox = document.getElementById('box-linux');
+    var hero = document.getElementById('hero-os');
 
-    function flash(msg) {
-      toast.textContent = msg;
-      toast.classList.add('show');
-      btn.classList.add('done');
-      icon.innerHTML = tick;
-      clearTimeout(timer);
-      timer = setTimeout(function () {
-        toast.classList.remove('show');
-        btn.classList.remove('done');
-        icon.innerHTML = copy;
-      }, 2200);
+    if (os === 'linux') {
+      winTab.classList.remove('active');
+      linTab.classList.add('active');
+      winBox.style.display = 'none';
+      linBox.style.display = 'block';
+      hero.textContent = 'for Linux';
+    } else {
+      linTab.classList.remove('active');
+      winTab.classList.add('active');
+      linBox.style.display = 'none';
+      winBox.style.display = 'block';
+      hero.textContent = 'for Windows';
     }
+  }
 
-    btn.addEventListener('click', function () {
-      if (navigator.share) {
-        navigator.share({
-          title: 'TouchPlay for Windows',
-          text: 'Open this on your PC to set up TouchPlay:',
-          url: link
-        }).catch(function () {});
-        return;
-      }
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(link)
-          .then(function () { flash('Link copied'); })
-          .catch(function () { flash(link); });
-        return;
-      }
-      flash(link);
-    });
+  // Auto-detect OS on load
+  (function () {
+    var ua = navigator.userAgent.toLowerCase();
+    if (ua.indexOf('linux') !== -1 && ua.indexOf('android') === -1) {
+      setOS('linux');
+    } else {
+      setOS('win');
+    }
   })();
 
-  // Show the real version and size once GitHub answers; stays silent if it
-  // does not, so the page never depends on the API being up.
+  function showToast(msg) {
+    var toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+
+  function copyLinuxCmd() {
+    var cmd = "git clone https://github.com/shantoshdurai/TouchPlay.git && cd TouchPlay && ./setup.sh";
+    navigator.clipboard.writeText(cmd).then(function () {
+      showToast('Command copied to clipboard!');
+    }).catch(function () {
+      showToast(cmd);
+    });
+  }
+
+  function sharePage() {
+    var link = 'https://shantoshdurai.github.io/touchplay-releases/';
+    if (navigator.share) {
+      navigator.share({
+        title: 'TouchPlay for Windows & Linux',
+        text: 'Turn your phone into a PC gamepad and 2nd screen:',
+        url: link
+      }).catch(function () {});
+      return;
+    }
+    navigator.clipboard.writeText(link).then(function () {
+      showToast('Link copied!');
+    }).catch(function () {
+      showToast(link);
+    });
+  }
+
+  // Dynamic version/size check from GitHub API
   fetch('https://api.github.com/repos/shantoshdurai/touchplay-releases/releases/latest')
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (j) {
-      var meta = document.getElementById('meta');
+      var meta = document.getElementById('meta-win');
       if (!j || !meta) return;
       var exe = (j.assets || []).filter(function (a) { return /\.exe$/i.test(a.name); })[0];
       var mb = exe ? Math.round(exe.size / 1048576) : null;
       meta.innerHTML = 'Windows 10 &amp; 11 &middot; ' + (mb ? mb + ' MB' : 'about 60 MB')
-        + (j.tag_name ? ' &middot; ' + j.tag_name : '');
+        + (j.tag_name ? ' &middot; ' + j.tag_name : '') + ' &middot; Standalone .exe';
     })
     .catch(function () {});
 </script>
