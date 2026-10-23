@@ -75,7 +75,7 @@
 
     <header>
       <h1>TouchPlay &mdash; Privacy Policy</h1>
-      <span>Last updated: June 6, 2026</span>
+      <span>Last updated: October 23, 2026</span>
     </header>
 
     <p>Santosh Durai built the TouchPlay app as a free app. This service is provided at no cost and is intended for use as is. This page informs visitors about policies regarding the collection, use, and disclosure of personal information when using TouchPlay.</p>
@@ -100,8 +100,9 @@
     <ul>
       <li>No name, email address, or account information</li>
       <li>No location data</li>
-      <li>No camera or microphone access</li>
-      <li>No contacts or files</li>
+      <li>No microphone access &mdash; the camera is used only for Virtual Cam, and only while you have that feature switched on</li>
+      <li>No contacts</li>
+      <li>No files are read except the ones you explicitly pick to send, or save the ones you receive</li>
       <li>No usage analytics or crash reporting sent externally</li>
       <li>No advertising identifiers</li>
     </ul>
@@ -110,15 +111,30 @@
     <p>TouchPlay communicates with your PC over your local Wi-Fi or USB connection. This traffic is <strong>not encrypted</strong>. Only use TouchPlay on a private, trusted network &mdash; not on public Wi-Fi. We are not responsible for any data interception on networks you choose to use.</p>
 
     <h2>Permissions Used</h2>
+    <p>Every permission below exists to make one of TouchPlay's features work. None of
+    them is used for advertising, profiling, or analytics.</p>
     <ul>
-      <li><strong>INTERNET</strong> &mdash; required to communicate with the PC server over Wi-Fi.</li>
-      <li><strong>VIBRATE</strong> &mdash; used to rumble your phone when the game sends controller vibration feedback.</li>
-      <li><strong>WAKE_LOCK</strong> &mdash; keeps the screen active while playing so the controller does not disconnect.</li>
-      <li><strong>CAMERA</strong> &mdash; used only if you scan a QR code to connect. No images are stored or transmitted.</li>
+      <li><strong>INTERNET</strong> &mdash; communicate with the PC server over Wi-Fi or USB tethering.</li>
+      <li><strong>ACCESS_WIFI_STATE</strong> &mdash; hold a Wi-Fi lock so the connection stays alive while you play.</li>
+      <li><strong>VIBRATE</strong> &mdash; rumble your phone in response to controller vibration feedback from the game.</li>
+      <li><strong>WAKE_LOCK</strong> &mdash; keep the screen active during play so the controller does not disconnect.</li>
+      <li><strong>CAMERA</strong> &mdash; used when you turn on <em>Virtual Cam</em>, which streams your phone's camera to your PC as a webcam. Live frames are sent only to your own PC over the local network; nothing is recorded, stored, or uploaded. (The camera is also read if you scan a QR code to connect.) You can use every other feature without ever granting it.</li>
+      <li><strong>BLUETOOTH, BLUETOOTH_SCAN, BLUETOOTH_CONNECT</strong> (and the older BLUETOOTH / BLUETOOTH_ADMIN on Android 11 and below) &mdash; the optional Bluetooth connection mode, an alternative to Wi-Fi. Used only while you are connecting to your own PC; no device scanning happens in the background.</li>
+      <li><strong>FOREGROUND_SERVICE, FOREGROUND_SERVICE_MEDIA_PROJECTION</strong> &mdash; required by Android for <em>Projector</em> (screen cast) to keep capturing while the app is in the background. The capture is of your own screen, sent only to your own PC.</li>
+      <li><strong>POST_NOTIFICATIONS</strong> (Android 13+) &mdash; shows the single, unavoidable notification Android requires for the Projector's foreground service. TouchPlay sends no marketing, promotional, or scheduled notifications.</li>
+      <li><strong>WRITE_EXTERNAL_STORAGE</strong> (Android 9 and older only) &mdash; save files you receive from your PC into your Downloads folder. Newer Android versions use scoped storage and do not need it.</li>
     </ul>
+
+    <div class="note">
+      TouchPlay does not request permission to send you notifications for news,
+      offers, or reminders. When a new version of the app is available, you find out
+      from a small banner inside the app the next time you open it &mdash; that check
+      talks only to Google Play, and needs no notification permission.
+    </div>
 
     <h2>Third-Party Services</h2>
     <p>TouchPlay does not use any third-party SDKs, analytics services, or advertising networks. The only external dependency is <a href="https://www.google.com/policies/privacy/" target="_blank" rel="noopener noreferrer">Google Play Services</a>, provided by the Android platform.</p>
+    <p>The app also asks Google Play whether a newer version of TouchPlay exists (the in-app update prompt). That check is handled by Google Play, is not tied to any identifier of yours, and returns only whether an update is available. No information about you is sent with it.</p>
 
     <h2>Children's Privacy</h2>
     <p>TouchPlay does not knowingly collect personal information from children under 13. If you believe a child has provided personal information through the app, please contact us and we will delete it immediately.</p>
