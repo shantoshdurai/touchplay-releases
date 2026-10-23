@@ -30,8 +30,8 @@ tells you inside when a new version is available.
 | **🪟 Windows (10 / 11)** | Download and run [**TouchPlay-Server.exe**](https://github.com/shantoshdurai/touchplay-releases/releases/latest/download/TouchPlay-Server.exe) | Bundled ViGEmBus driver, GUI window with drag-and-drop, tray support |
 | **🐧 Linux (Arch / Ubuntu / Fedora / Omarchy)** | Download [**touchplay-linux-source.tar.gz**](https://github.com/shantoshdurai/touchplay-releases/releases/latest/download/touchplay-linux-source.tar.gz), extract, then `./setup.sh` and `./TouchPlay-Server.sh` | Native `/dev/uinput` evdev, Wayland (`grim`) & X11 capture, Rich terminal dashboard, `touchplay-send` CLI |
 
-A prebuilt single-file Linux binary, `TouchPlay-Server-Linux`, is attached to each
-tagged release as well, for machines that would rather not run Python.
+The source bundle is the supported Linux path: `setup.sh` sets up a virtual
+environment, so nothing is installed system-wide and uninstalling is `rm -rf`.
 
 > **Linux requires Python 3.10+**, the `python3-venv` package, and your user in the
 > `input` group (`sudo usermod -aG input "$USER"`, then log out and back in) so the
