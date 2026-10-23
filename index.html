@@ -205,29 +205,43 @@
   <!-- Linux Action Container -->
   <div id="box-linux" style="display:none" class="rise">
     <div class="code-box">
-      <code>git clone https://github.com/shantoshdurai/TouchPlay.git &amp;&amp; cd TouchPlay &amp;&amp; ./setup.sh</code>
+      <code>tar xzf touchplay-linux-source.tar.gz &amp;&amp; cd touchplay &amp;&amp; ./setup.sh</code>
       <button class="code-copy" onclick="copyLinuxCmd()">Copy</button>
     </div>
     <div style="margin-top:14px">
-      <a class="pill" href="https://github.com/shantoshdurai/TouchPlay" target="_blank" rel="noopener">
+      <a class="pill" href="https://github.com/shantoshdurai/touchplay-releases/releases/latest/download/touchplay-linux-source.tar.gz">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
           <path d="M9 18c-4.51 2-5-2-7-2"/>
         </svg>
-        View Source &amp; Setup on GitHub
+        Download for Linux &mdash; latest release
       </a>
     </div>
-    <div class="meta">Arch, Ubuntu, Fedora, Omarchy &middot; Native uinput &amp; Wayland / X11</div>
+    <div class="meta">Arch, Ubuntu, Fedora, Omarchy &middot; Native uinput &amp; Wayland / X11 &middot; Python 3.10+</div>
 
     <section class="steps">
       <h2>How to run on Linux</h2>
-      <div class="step"><span>1</span><p>Run <code>./TouchPlay-Server.sh</code> to launch the terminal dashboard.</p></div>
-      <div class="step"><span>2</span><p>Open TouchPlay on your phone &mdash; it connects instantly over Wi-Fi or USB.</p></div>
-      <div class="step"><span>3</span><p>Send videos anytime: <code>touchplay-send &lt;video.mp4&gt;</code> or drop into <code>~/Downloads/TouchPlay</code>.</p></div>
+      <div class="step"><span>1</span><p>Extract the download and run <code>./setup.sh</code> once &mdash; it creates a venv, installs the Linux dependencies, adds a desktop entry, and tells you if <code>/dev/uinput</code> needs fixing.</p></div><div class="step"><span>2</span><p>Run <code>./TouchPlay-Server.sh</code> to launch the terminal dashboard.</p></div>
+      <div class="step"><span>3</span><p>Open TouchPlay on your phone &mdash; it connects instantly over Wi-Fi or USB.</p></div>
+      <div class="step"><span>4</span><p>Send videos anytime: <code>touchplay-send &lt;video.mp4&gt;</code> or drop into <code>~/Downloads/TouchPlay</code>.</p></div>
     </section>
   </div>
 
+  <!-- Android: the app ships only through Google Play -->
+  <section class="rise" style="animation-delay:.38s;margin-top:34px;text-align:center">
+    <h2 style="font-size:15px;font-weight:600;margin:0 0 6px">The phone app</h2>
+    <p class="sub" style="font-size:12.5px;margin:0 0 14px">
+      TouchPlay for Android is distributed only through Google Play &mdash; updates arrive there automatically.
+    </p>
+    <a class="pill" href="https://play.google.com/store/apps/details?id=com.touchplay.app"
+       target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M3.6 1.8a1 1 0 0 0-.6.9v18.6a1 1 0 0 0 .6.9l10-10.2L3.6 1.8zM15.4 10.1 5.7.9l11.9 6.8-2.2 2.4zm0 3.8 2.2 2.4L5.7 23.1l9.7-9.2zm3.6-2.9-2.1 2.1 2.1 2.1 2.9-1.6c.8-.5.8-1.6 0-2.1l-2.9-1.5z"/>
+      </svg>
+      Get it on Google Play
+    </a>
+  </section>
   <!-- Platform Comparison -->
   <section class="diff-section rise" style="animation-delay:.42s">
     <h2>Architecture &amp; Features</h2>
@@ -321,7 +335,7 @@
   }
 
   function copyLinuxCmd() {
-    var cmd = "git clone https://github.com/shantoshdurai/TouchPlay.git && cd TouchPlay && ./setup.sh";
+    var cmd = "tar xzf touchplay-linux-source.tar.gz && cd touchplay && ./setup.sh";
     navigator.clipboard.writeText(cmd).then(function () {
       showToast('Command copied to clipboard!');
     }).catch(function () {
