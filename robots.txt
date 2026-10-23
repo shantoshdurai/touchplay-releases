@@ -1,0 +1,5 @@
+# TouchPlay - all crawlers welcome (search engines, answer engines, AI agents).
+User-agent: *
+Allow: /
+
+Sitemap: https://shantoshdurai.github.io/touchplay-releases/sitemap.xml

@@ -6,10 +6,20 @@
      rather than reflowing into a different design, so the page looks like
      itself everywhere. -->
 <meta name="viewport" content="width=640">
-<title>TouchPlay — Phone to PC Controller &amp; 2nd Screen</title>
-<meta name="description" content="Download the TouchPlay PC server for Windows and Linux — the program that lets your phone act as a gamepad, trackpad, and second screen for your PC.">
-<meta property="og:title" content="TouchPlay for Windows &amp; Linux">
-<meta property="og:description" content="Turn your phone into a real controller, trackpad, and second screen for your PC.">
+<title>TouchPlay &mdash; Use Your Phone as a PC Gamepad, Trackpad &amp; Second Screen</title>
+<meta name="description" content="Turn an Android phone into a wireless PC gamepad, trackpad, keyboard, second screen, file transfer and webcam. 8-player co-op, custom layouts, screen mirror. Free PC server for Windows 10/11 and Linux.">
+<meta property="og:title" content="TouchPlay: phone as PC gamepad, trackpad and second screen">
+<meta property="og:description" content="Wireless gamepad for 8 players, precision trackpad, keyboard, screen mirror, virtual second screen, file transfer, virtual webcam and projector, all from your Android phone. Free PC server for Windows and Linux.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shantoshdurai.github.io/touchplay-releases/">
+<meta property="og:image" content="https://shantoshdurai.github.io/touchplay-releases/screen1.png">
+<meta property="og:site_name" content="TouchPlay">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TouchPlay: phone as PC gamepad, trackpad and second screen">
+<meta name="twitter:description" content="Wireless gamepad, trackpad, keyboard, second screen, file transfer and webcam for your PC, from your Android phone.">
+<meta name="twitter:image" content="https://shantoshdurai.github.io/touchplay-releases/screen1.png">
+<meta name="keywords" content="phone as gamepad, android pc controller, wireless gamepad pc, phone as second screen, phone as trackpad, phone as webcam, pc controller app, screen mirror android to pc, virtual gamepad, xbox 360 controller emulator, 8 player co-op controller, phone keyboard for pc">
+<link rel="canonical" href="https://shantoshdurai.github.io/touchplay-releases/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -147,12 +157,107 @@
 
   .rise{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
   @keyframes rise{to{opacity:1;transform:none}}
-  @media (prefers-reduced-motion:reduce){
+  .faq{max-width:560px;margin:0 auto}
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;margin-bottom:9px}
+  .faq summary{cursor:pointer;font-size:12.5px;font-weight:600;color:var(--ink);
+    list-style:none}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::before{content:"+";display:inline-block;width:14px;color:var(--accent)}
+  .faq details[open] summary::before{content:"\2013"}
+  .faq p{margin:9px 0 0;font-size:12px;line-height:1.6;color:var(--muted)}
+  .faq code{font-size:11.5px;color:var(--ink)}
     .rise{animation:none;opacity:1;transform:none}
     .dust{display:none}
   }
 </style>
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "TouchPlay",
+        "alternateName": "TouchPlay PC Controller",
+        "applicationCategory": "GameApplication",
+        "applicationSubCategory": "Remote control and virtual gamepad",
+        "operatingSystem": "Windows 10, Windows 11, Linux",
+        "softwareVersion": "1.8.0",
+        "url": "https://shantoshdurai.github.io/touchplay-releases/",
+        "downloadUrl": "https://github.com/shantoshdurai/touchplay-releases/releases/latest/download/TouchPlay-Server.exe",
+        "installUrl": "https://play.google.com/store/apps/details?id=com.touchplay.app",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "description": "TouchPlay turns an Android phone into a wireless PC gamepad, precision trackpad, keyboard, second screen, file transfer tool, virtual webcam and projector. Up to eight phones can play co-op at once, and every control can be rebound in a built-in layout editor. The PC server is free for Windows 10/11 and Linux.",
+        "featureList": [
+          "Wireless gamepad for up to 8 players (4 Xbox 360 pads, 4 DualShock 4 pads)",
+          "Precision trackpad with two-finger scroll and pinch zoom",
+          "On-screen keyboard and floating mini-keyboard for PC text entry",
+          "Screen mirror from PC to phone",
+          "Virtual second display that extends the desktop",
+          "Two-way file transfer between phone and PC",
+          "Virtual webcam: phone camera as a PC webcam for OBS, Zoom, Discord",
+          "Projector: phone screen shown in a PC window",
+          "Per-game layouts including a Forza Horizon steering wheel and tilt steering",
+          "Custom drag-and-drop layout editor with shareable layout codes",
+          "Connection over Wi-Fi LAN or a USB cable",
+          "Haptic rumble forwarded from the game to the phone"
+        ],
+        "sameAs": [
+          "https://play.google.com/store/apps/details?id=com.touchplay.app",
+          "https://github.com/shantoshdurai/touchplay-releases"
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can I use my phone as a PC gamepad without any hardware?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Install TouchPlay on the phone from Google Play and run the free TouchPlay server on your PC; both find each other automatically over the same Wi-Fi network. No dongle, cable or receiver is needed." }
+          },
+          {
+            "@type": "Question",
+            "name": "How many players can play at the same time?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Up to eight phones on one PC. Players 1-4 appear as Xbox 360 controllers and players 5-8 as DualShock 4 controllers, because Windows only exposes four Xbox XInput slots." }
+          },
+          {
+            "@type": "Question",
+            "name": "Which games does it work with?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Any PC game that accepts an Xbox or PlayStation controller, including Steam, Epic, Game Pass, emulators, and games streamed through Moonlight, Parsec or GeForce Now." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use the phone as a second screen instead of just a mirror?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. On Windows 10 the server adds a virtual display so the phone extends the desktop. On Linux it creates a headless output on Hyprland. On Windows 11 a Windows 11 capable virtual display driver must be installed first, because the bundled one supports Windows 10 only." }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it work over a USB cable?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes, and it is the lowest-latency option at under 1 ms. Turn on USB tethering and the app connects over the cable instead of Wi-Fi." }
+          },
+          {
+            "@type": "Question",
+            "name": "Is TouchPlay free, and does it need an account?",
+            "acceptedAnswer": { "@type": "Answer", "text": "It is free, with no account, no sign-in and no cloud. Controller input, screen frames and files travel only between the phone and the user's own PC on the local network." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I build my own controller layout?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. The built-in editor lets you add, drag, resize, rename and delete buttons, sticks, triggers, D-pads and mouse pads, bind each to a gamepad button, keyboard key or mouse action, and save it as a custom layout that can be shared as a text code." }
+          },
+          {
+            "@type": "Question",
+            "name": "Which operating systems does the PC server run on?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Windows 10 and 11, and Linux distributions with /dev/uinput (Arch, Ubuntu, Fedora and others). The phone app requires Android 8.0 or newer." }
+          }
+        ]
+      }
+    ]
+    </script>
+
 </head>
+
 <body>
 <div class="glow"></div>
 <div class="dust" id="dust"></div>
@@ -269,6 +374,35 @@
       </div>
     </div>
   </section>
+
+    <section class="rise" style="animation-delay:.46s;margin-top:40px">
+      <h2 style="font-size:15px;font-weight:600;margin:0 0 16px;text-align:center">Questions</h2>
+      <div class="faq">
+        <details><summary>Can I use my phone as a PC gamepad without any hardware?</summary>
+          <p>Yes. Install TouchPlay on the phone from Google Play, run the free TouchPlay server on your PC, and both find each other automatically over the same Wi-Fi network. No dongle, cable or receiver is needed.</p></details>
+
+        <details><summary>How many players can play at the same time?</summary>
+          <p>Up to eight phones on one PC. Players 1&ndash;4 appear as Xbox 360 controllers and players 5&ndash;8 as DualShock 4 controllers, because Windows only exposes four Xbox XInput slots.</p></details>
+
+        <details><summary>Which games does it work with?</summary>
+          <p>Any PC game that accepts an Xbox or PlayStation controller. That includes Steam, Epic, Game Pass, emulators, and games streamed through Moonlight, Parsec or GeForce Now.</p></details>
+
+        <details><summary>Can I use the phone as a second screen instead of just a mirror?</summary>
+          <p>Yes. On Windows 10 the server adds a virtual display so the phone can extend your desktop. On Linux it creates a headless output on Hyprland. On Windows 11 you first need a Windows 11 capable virtual display driver installed &mdash; the bundled one is Windows 10 only.</p></details>
+
+        <details><summary>Does it work over a USB cable?</summary>
+          <p>Yes, and it is the lowest-latency option (under 1&nbsp;ms). Turn on USB tethering and the app connects over the cable instead of Wi-Fi, which is useful on crowded networks.</p></details>
+
+        <details><summary>Is TouchPlay free, and does it need an account?</summary>
+          <p>It is free and there is no account, no sign-in, and no cloud. Your controller input, screen frames and files travel only between your phone and your own PC on your local network.</p></details>
+
+        <details><summary>Can I build my own controller layout?</summary>
+          <p>Yes. The built-in editor lets you add, drag, resize, rename and delete any button, stick, trigger, D-pad or mouse pad, bind each one to a gamepad button, keyboard key or mouse action, and save it as your own layout. Layouts can be shared as a text code.</p></details>
+
+        <details><summary>Which operating systems does the PC server run on?</summary>
+          <p>Windows 10 and 11, and Linux (Arch, Ubuntu, Fedora, and other distributions with <code>/dev/uinput</code>). The phone app is Android 8.0 and newer.</p></details>
+      </div>
+    </section>
 
   <footer>
     <a href="https://play.google.com/store/apps/details?id=com.touchplay.app">📱 Android App</a><i>&middot;</i>
